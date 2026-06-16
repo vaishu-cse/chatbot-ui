@@ -56,13 +56,13 @@ export default function App() {
     setLoading(true)
 
     try {
-      const res = await fetch('/api/chat', {
+      const res = await fetch('http://127.0.0.1:8000/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: userMessage })
       })
       const data = await res.json()
-      const answer = data.error ? `Error: ${data.error}` : (data.response?.answer || 'No response')
+      const answer = data.error ? `Error: ${data.error}` : (data.response || 'No response')
       setMessages(prev => [...prev, { type: 'assistant', text: answer }])
     } catch (e) {
       setMessages(prev => [...prev, { type: 'assistant', text: `Error: ${String(e)}` }])
